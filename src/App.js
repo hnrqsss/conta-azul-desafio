@@ -1,16 +1,17 @@
-import React from 'react';
+import React from 'react'
 import './utils/api'
 import GlobalStyle from './styles/global'
+import Main from './screens/Main'
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <div className="App">
-        
-      </div>
+      <Main 
+
+      />
     </>
   );
 }
 
-export default App;
+export default App
