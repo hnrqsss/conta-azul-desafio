@@ -57,7 +57,7 @@ export const CardBody = styled.div`
   display: flex;
 
   p {
-      font-size: 95px;
+      font-size: 83px;
       font-weight: 300;
       color: ${props => selectTemperatureColor(props.temperature)};
   }

@@ -1,14 +1,17 @@
 [
     {
-        "name": "",
-        "state": ""
+        "name": "Nuuk",
+        "country": "gl",
+        "error": false
     },
     {
-        "name": "",
-        "state": ""
+        "name": "Urubici",
+        "country": "br",
+        "error": false
     },
     {
-        "name": "",
-        "state": ""
+        "name": "Nairobi",
+        "country": "ke",
+        "error": false
     }
 ]

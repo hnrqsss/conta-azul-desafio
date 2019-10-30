@@ -10,9 +10,9 @@ import {
 } from './styles';
 
 export default function Card({
-    cityName = 'Teste',
+    name = 'Teste',
     country = 'Tt',
-    temperature = 0,
+    temp = 0,
     humidity=75,
     pressure=892,
     lastUpdate = new Date(),
@@ -24,18 +24,18 @@ export default function Card({
     >
         <CardHeader>
             <h2>
-                {cityName}, 
-                <span>{country}</span>
+                {name}, 
+                <span> {country}</span>
             </h2>
         </CardHeader>
 
         <CardBody 
-            temperature={temperature}
+            temperature={temp}
             humidity={humidity}
             pressure={pressure}
         >
             <p>
-                {temperature}
+                {temp}
                 <span>°</span>
             </p>
         </CardBody>
@@ -60,11 +60,7 @@ export default function Card({
             </FoorterLine>
 
             <FoorterDate>
-                Updated at {lastUpdate.toLocaleTimeString('en', {
-                    hour: '2-digit',
-                    minute:'2-digit',
-                    second: '2-digit',
-                })}
+                Updated at {lastUpdate}
             </FoorterDate>
             
         </CardFooter>
