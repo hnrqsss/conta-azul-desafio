@@ -8,8 +8,8 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    html, body, #root {
-        min-height: 100%;
+    html, body, #root>div {
+        min-height: 100vh;
     }
 
     body {
