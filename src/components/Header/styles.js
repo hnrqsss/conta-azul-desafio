@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import logo from '../../assets/logo.svg'
 
-
 export const Container = styled.div`
   background: #FFFFFF;
   height: 53px;
@@ -13,7 +12,8 @@ export const Container = styled.div`
 `;
 
 export const Logo = styled.img.attrs({
-    src: logo
+    src: logo,
+    alt: 'Logo Image'
 })`
     height: 28px;
     width: auto;
