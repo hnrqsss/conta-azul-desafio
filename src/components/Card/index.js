@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Loader } from '../index'
+
 import { 
     Container, 
     CardHeader, 
@@ -10,12 +12,17 @@ import {
 } from './styles';
 
 export default function Card({
-    name = 'Teste',
-    country = 'Tt',
-    temp = 0,
-    humidity=75,
-    pressure=892,
-    lastUpdate = new Date(),
+    name = '',
+    country = '',
+    temp,
+    humidity,
+    pressure,
+    lastUpdate = new Date().toLocaleTimeString('en', {
+        hour: '2-digit',
+        minute:'2-digit',
+        second: '2-digit',
+    }),
+    isLoading
 }) {
   return (
     <Container
@@ -34,36 +41,41 @@ export default function Card({
             humidity={humidity}
             pressure={pressure}
         >
-            <p>
-                {temp}
-                <span>°</span>
-            </p>
+            {!isLoading ? (
+                <p>
+                    {temp}
+                    <span>°</span>
+                </p>
+            ) : (
+                <Loader />
+            )}
         </CardBody>
-
-        <CardFooter
-            humidity={humidity}
-            pressure={pressure}
-            lastUpdate={lastUpdate}
-        >
-            <FoorterLine
+        { !isLoading && (
+            <CardFooter
                 humidity={humidity}
                 pressure={pressure}
+                lastUpdate={lastUpdate}
             >
-                <div>
-                    <p>HUMIDITY</p>
-                    <span>{humidity} %</span>
-                </div>
-                <div>
-                    <p>PRESSURE</p>
-                    <span>{pressure} hPa</span>
-                </div>
-            </FoorterLine>
+                <FoorterLine
+                    humidity={humidity}
+                    pressure={pressure}
+                >
+                    <div>
+                        <p>HUMIDITY</p>
+                        <span>{humidity} %</span>
+                    </div>
+                    <div>
+                        <p>PRESSURE</p>
+                        <span>{pressure} hPa</span>
+                    </div>
+                </FoorterLine>
 
-            <FoorterDate>
-                Updated at {lastUpdate}
-            </FoorterDate>
-            
-        </CardFooter>
+                <FoorterDate>
+                    Updated at {lastUpdate}
+                </FoorterDate>
+                
+            </CardFooter>
+        )}
     
     </Container>
   );

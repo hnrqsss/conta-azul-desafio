@@ -4,7 +4,7 @@ import GlobalStyle from './styles/global'
 import Main from './screens/Main'
 import { requestWeather } from './utils/api'
 
-import cities from './config/cities.json'
+import data from './config/data.json'
 
 class App extends React.Component {
 
@@ -14,48 +14,48 @@ class App extends React.Component {
 
   getWeather = async (item) => {
     
-    const { weathers } = this.state
     try {
       const { main, lastUpdate } = await requestWeather(item.name, item.country)
 
-
-
-      return ([...weathers, {
-          ...item,
-          error: false,
-          ...main,
-          lastUpdate,
-        }]
-      )
+      return ({
+        ...item,
+        error: false,
+        isLoading: false,
+        ...main,
+        lastUpdate,
+      })
 
     } catch(error) {
 
-      return (
-        [...weathers, {
-          ...item,
-          error: true
-        }]
-      )
+      return ({
+        ...item,
+        error: true,
+        isLoading: false,
+      })
     } 
   }
 
   requestWeathers = async () => {
 
-    for(let i = 0; i < cities.length; i++) {
-      try  {
-        const data = await this.getWeather(cities[i])
+    for(let i = 0; i < data.length; i++) {
+      
+      const response = await this.getWeather(data[i])
+      
+      const newData = this.state.weathers.map(item => {
+        if(item.name === response.name) {
+          return response
+        }
+        return item
+      })
 
-        this.setState({ weathers: data })
-      }catch(error) {
-        console.log(error)
-      }
+      this.setState({ weathers: newData })
       
     }
   }
 
   componentDidMount() {
     if(this.state.weathers.length === 0) {
-        this.requestWeathers()
+        this.setState({ weathers: [...data] }, () => this.requestWeathers())
     }
   }
   

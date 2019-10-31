@@ -13,7 +13,7 @@ function selectTemperatureColor(temperature) {
 }
 
 function calcFooterSize(hasProps) {
-  return hasProps ? '130px' : '110px'
+  return hasProps ? '130px' : '160px'
 }
 
 export const Container = styled.div`
@@ -50,7 +50,7 @@ export const CardHeader = styled.div`
 `
 
 export const CardBody = styled.div`
-  height: calc(100% - ${({humidity, pressure}) => calcFooterSize(humidity && pressure)});
+  height: calc(100% - ${({humidity, pressure, isLoading}) => calcFooterSize(humidity && pressure)});
   align-items: center;
   justify-content: center;
   width: 100%;

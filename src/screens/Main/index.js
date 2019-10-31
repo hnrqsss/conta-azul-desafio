@@ -7,13 +7,14 @@ export default function Main({
   weathers,
   getWeathers
 }) {
+
   return (
     <Container >
       {console.log(weathers)}
         <Header />
         <CardList>
           <List>
-            {weathers.map((weather, index) => <Card  key={weather.name} {...weather} />)}
+            {weathers.map((item, index) => <Card {...item} key={index} />)}
           </List>
         </CardList>
     </Container>
