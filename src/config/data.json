@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Nuuk",
+        "country": "gl",
+        "error": false,
+        "isLoading": true
+    },
+    {
+        "name": "Urubici",
+        "country": "br",
+        "error": false,
+        "isLoading": true
+    },
+    {
+        "name": "Nairobi",
+        "country": "ke",
+        "error": false,
+        "isLoading": true
+    }
+]
