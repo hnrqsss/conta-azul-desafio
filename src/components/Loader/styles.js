@@ -14,6 +14,6 @@ export const LoaderImage = styled.img.attrs({
   src:   loader,
   alt: 'Loader image'
 })`
-    width: 30px;
+    width: 60px;
     height: auto;
 `

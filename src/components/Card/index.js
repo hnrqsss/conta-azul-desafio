@@ -9,6 +9,8 @@ import {
     CardFooter,
     FoorterLine,
     FoorterDate,
+    ErrorContainer,
+    ErrorButton,
 } from './styles';
 
 export default function Card({
@@ -22,7 +24,9 @@ export default function Card({
         minute:'2-digit',
         second: '2-digit',
     }),
-    isLoading
+    isLoading,
+    error,
+    requestData
 }) {
   return (
     <Container
@@ -40,17 +44,38 @@ export default function Card({
             temperature={temp}
             humidity={humidity}
             pressure={pressure}
+            error={error}
         >
-            {!isLoading ? (
+            {(!isLoading && !error) && (
                 <p>
                     {temp}
                     <span>°</span>
                 </p>
-            ) : (
-                <Loader />
+            )} 
+            { isLoading && <Loader />}
+
+            {(!isLoading && error) && (
+                <ErrorContainer>
+                    <p>Something went wrong</p>
+                    <ErrorButton
+                        onClick={() => requestData({
+                            name,
+                            country,
+                            temp,
+                            humidity,
+                            pressure,
+                            lastUpdate,
+                            isLoading,
+                            error,
+                        })}
+                    >
+                        Try Again
+                    </ErrorButton>
+                </ErrorContainer>
             )}
+            
         </CardBody>
-        { !isLoading && (
+        { (!isLoading && !error) && (
             <CardFooter
                 humidity={humidity}
                 pressure={pressure}

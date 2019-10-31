@@ -12,8 +12,16 @@ function selectTemperatureColor(temperature) {
   return '#ED1946'
 }
 
-function calcFooterSize(hasProps) {
-  return hasProps ? '130px' : '160px'
+function calcFooterSize(humidity, pressure, isLoading, error) {
+  if(humidity && pressure && !isLoading && !error) {
+    return '130px'
+  }
+
+  if(!humidity && !pressure && !isLoading && !error) {
+    return '110px'
+  }
+
+  return '30px'
 }
 
 export const Container = styled.div`
@@ -50,7 +58,7 @@ export const CardHeader = styled.div`
 `
 
 export const CardBody = styled.div`
-  height: calc(100% - ${({humidity, pressure, isLoading}) => calcFooterSize(humidity && pressure)});
+  height: calc(100% - ${({humidity, pressure, isLoading, error}) => calcFooterSize(humidity, pressure, isLoading, error)});
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -64,7 +72,7 @@ export const CardBody = styled.div`
 
   span {
     font-size: 40px;
-    line-height: 68px;
+    line-height: 56px;
     vertical-align: text-top;
   }
 `
@@ -113,4 +121,32 @@ export const FoorterLine = styled.div`
 export const FoorterDate = styled.div`
   font-size: 11px;
   color: #D8D2D2;
+`
+
+export const ErrorContainer = styled.div`
+
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: -40px;
+
+  p {
+    font-size: 18px;
+  }
+`
+
+export const ErrorButton = styled.button.attrs({
+  type: 'button',
+})`
+  background: transparent;
+  padding: 10px 18px;
+  border-radius: 24px;
+  box-shadow: none;
+  border: 3px solid #737C84;
+  color: #737C84;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 100;
 `
