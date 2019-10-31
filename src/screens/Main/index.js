@@ -5,16 +5,15 @@ import { Header, Card } from '../../components';
 
 export default function Main({
   weathers,
-  getWeathers
+  getWeather
 }) {
 
   return (
     <Container >
-      {console.log(weathers)}
         <Header />
         <CardList>
           <List>
-            {weathers.map((item, index) => <Card {...item} key={index} />)}
+            {weathers.map((item, index) => <Card {...item} key={index} requestData={getWeather}/>)}
           </List>
         </CardList>
     </Container>

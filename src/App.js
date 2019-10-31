@@ -12,10 +12,36 @@ class App extends React.Component {
     weathers: []
   }
 
-  getWeather = async (item) => {
+  updateWeathers = async (item)  => {
+    const response = await this.getWeather(item, true)
+
+    const newData = this.state.weathers.map(item => {
+
+      if(item.name === response.name) {
+        return ({ 
+          ...response,
+          //Mock data to always get humidity and pressure if city is different of the Uruburici
+          humidity: (item.name !== 'Urubici') ? undefined : response.humidity,
+          pressure: (item.name !== 'Urubici') ? undefined : response.pressure,
+          error: false,
+        })
+      }
+      return item
+    })
+
+    this.setState({ weathers: newData })
+
+  }
+
+  getWeather = async (item, isUpdated = undefined) => {
     
     try {
       const { main, lastUpdate } = await requestWeather(item.name, item.country)
+  
+      //Mock data to get an error the first time
+      if(item.name === 'Nairobi' && !isUpdated) {
+        throw new Error();
+      }
 
       return ({
         ...item,
@@ -42,8 +68,13 @@ class App extends React.Component {
       const response = await this.getWeather(data[i])
       
       const newData = this.state.weathers.map(item => {
+
         if(item.name === response.name) {
-          return response
+          return ({ 
+            ...response,
+            humidity: (item.name === 'Nuuk' || item.name === 'Nairobi') ? undefined : response.humidity,
+            pressure: (item.name === 'Nuuk' || item.name === 'Nairobi') ? undefined : response.pressure,
+          })
         }
         return item
       })
@@ -65,7 +96,7 @@ class App extends React.Component {
         <GlobalStyle />
         <Main 
           weathers={this.state.weathers}
-          getWeather={this.getWeather}
+          getWeather={this.updateWeathers}
         />
       </>
     )
