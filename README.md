@@ -32,3 +32,17 @@ Debug:
 4. No arquivo `.env` preencher o campo `REACT_APP_OPEN_WEATHER_KEY` com sua chave de ativação da api [OpenWeather](https://openweathermap.org/). Caso não tenha segue minha chave de exemplo: `8322ff92976f796ee84c0e74b1cf8ae2`
 5. No termimal execute o comando `yarn --frozen-lockfile`
 6. No termimal execute o comando `yarn start`
+
+Prod:
+
+1. No terminal navegue até sua pasta de preferência e `git clone https://github.com/hnrqsss/conta-azul-desafio.git`
+2. Pelo terminal acesse o repositório baixado `cd conta-azul-desafio/`
+3. Renomear arquivo `.exemple.env` para `.env`
+4. No arquivo `.env` preencher o campo `REACT_APP_OPEN_WEATHER_KEY` com sua chave de ativação da api [OpenWeather](https://openweathermap.org/). Caso não tenha segue minha chave de exemplo: `8322ff92976f796ee84c0e74b1cf8ae2`
+5. No termimal execute o comando `yarn --frozen-lockfile`
+6. No termimal execute o comando `yarn build` caso esteja com o servidor rodando a alicação pare e execute o comando.
+7. Com isso os aquivos de build estão gerados para deploy da aplicação.
+
+#### Tests
+
+`yarn test`
