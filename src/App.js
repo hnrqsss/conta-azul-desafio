@@ -13,7 +13,7 @@ class App extends React.Component {
   }
 
   updateWeathers = async (item)  => {
-    const response = await this.getWeather(item, true)
+    const response = await this.getWeather(item)
 
     const newData = this.state.weathers.map(item => {
 
@@ -33,15 +33,15 @@ class App extends React.Component {
 
   }
 
-  getWeather = async (item, isUpdated = undefined) => {
+  getWeather = async (item) => {
     
     try {
       const { main, lastUpdate } = await requestWeather(item.name, item.country)
   
-      //Mock data to get an error the first time
-      if(item.name === 'Nairobi' && !isUpdated) {
-        throw new Error();
-      }
+      //Mock data to get an error in Nairobi request
+      // if(item.name === 'Nairobi') {
+      //   throw new Error();
+      // }
 
       return ({
         ...item,
@@ -72,22 +72,45 @@ class App extends React.Component {
         if(item.name === response.name) {
           return ({ 
             ...response,
-            humidity: (item.name === 'Nuuk' || item.name === 'Nairobi') ? undefined : response.humidity,
-            pressure: (item.name === 'Nuuk' || item.name === 'Nairobi') ? undefined : response.pressure,
+            humidity: (item.name !== 'Urubici') ? undefined : response.humidity,
+            pressure: (item.name !== 'Urubici') ? undefined : response.pressure,
           })
         }
         return item
       })
 
-      this.setState({ weathers: newData })
+      this.setState({ weathers: newData }, () => localStorage.setItem('@weathers', JSON.stringify(newData)))
       
     }
   }
 
   componentDidMount() {
-    if(this.state.weathers.length === 0) {
-        this.setState({ weathers: [...data] }, () => this.requestWeathers())
+
+    const localData = JSON.parse(localStorage.getItem('@weathers'))
+        
+        
+    if(this.state.weathers.length === 0 && !localData) {
+        
+        this.setState({ weathers: [...data] }, () => {
+          this.requestWeathers()
+        })
+    } else {
+      this.setState({ weathers: localData })
     }
+
+    this.autoRequest()
+  }
+
+  autoRequest = () => {
+      setInterval(() => {
+        this.requestWeathers()
+        localStorage.removeItem('@weathers')
+      }, 600000)//10 minutes
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('@weathers', JSON.stringify(this.state.weathers))
+    this.autoRequest()
   }
   
   render() {
